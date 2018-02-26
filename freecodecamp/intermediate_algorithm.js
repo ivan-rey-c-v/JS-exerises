@@ -33,6 +33,65 @@ function spinalCase(str) {
 	return str.replace(/\s|_/g, "-");
 }
 // 6. Pig Latin
-function translatePigLatin(str) {
+const translatePigLatin = str => {
+	str = str.toLowerCase();
+	let getHead = str => str.charAt(0);
+	let getTail = str => str.slice(1);
+	let isFirstVowel = str => ['a', 'e', 'i', 'o', 'u'].includes(getHead(str));
 
+	const _rec = str => {
+		let hasVowel = ['a', 'e', 'i', 'o', 'u'].some(x => str.includes(x));
+		if (hasVowel) {
+			str = `${getTail(str)}${getHead(str)}`;
+			return isFirstVowel(str) ? str : _rec(str);
+		} else {
+			return str;
+		}
+	};
+	return isFirstVowel(str) ? `${str}way` : `${_rec(str)}ay`;
+}
+// 7. Search and Replace
+const myReplace = (str, target, val) => {
+	let isHeadCap = target.charCodeAt(0) >= 65 && target.charCodeAt(0) <= 90;
+	if (isHeadCap) {
+		val = val.toLowerCase();
+		let headCode = val.charCodeAt(0);
+		let tail = val.slice(1);
+		let headCap = String.fromCharCode(headCode - 32);
+		val = `${headCap}${tail}`;
+		return str.replace(target, val);
+	} else {
+		return str.replace(target, val);
+	}
+}
+// 8. DNA Pairing
+const pairElement = str => {
+	let strArray = str.toUpperCase().split('');
+	return strArray.map(x => {
+		let pair = {
+			A: 'T',
+			T: 'A',
+			C: 'G',
+			G: 'C'
+		}[x];
+		return [x, pair];
+	});
+}
+// 9. Missing letters
+const fearNotLetter = str => {
+	str = str.toLowerCase();
+	let strArray = str.split('');
+	let missingCodes = [];
+	strArray.reduce((x, y) => {
+		let code_x = x.charCodeAt(0);
+		let code_y = y.charCodeAt(0);
+		const isOneDiff = (a, b) => (a - b) === 1;
+
+		while (!isOneDiff(code_y, code_x)) {
+			code_x += 1;
+			missingCodes.push(code_x);
+		}
+		return y;
+	});
+	return missingCodes.length === 0 ? undefined : String.fromCharCode(...missingCodes);
 }
