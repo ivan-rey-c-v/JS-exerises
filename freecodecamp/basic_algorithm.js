@@ -52,3 +52,24 @@ const repeatStringNumTimes = (str, count) => {
 	}
 }
 // 8. Truncate a string
+const truncateString = (str, n) => {
+	if (n >= str.length) {
+		return str;
+	}
+	else {
+		return `${str.substr(0, n)}...`;
+	}
+}
+
+// 9. Finders Keepers
+const findElement = (arr, predicateFn) => {
+	let notFound = true;
+	return arr.reduce(x => {
+		if (notFound) {
+			if (predicateFn(x)) {
+				notFound = false;
+				return predicateFn(x);
+			}
+		}
+	})[0];
+}
