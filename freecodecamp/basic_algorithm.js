@@ -64,12 +64,49 @@ const truncateString = (str, n) => {
 // 9. Finders Keepers
 const findElement = (arr, predicateFn) => {
 	let notFound = true;
-	return arr.reduce(x => {
+	let el;
+	arr.map(x => {
 		if (notFound) {
 			if (predicateFn(x)) {
+				el = x;
 				notFound = false;
-				return predicateFn(x);
 			}
 		}
-	})[0];
+	});
+	return el;
+}
+// 10. BooWho
+const booWho = x => typeof x === 'boolean';
+// 11. Title Case
+const titleCase = str => {
+	let lowerStrArray = str.toLowerCase().split(' ');
+	return lowerStrArray.map(x => {
+		let upperFirst = x.charAt(0).toUpperCase();
+		let tail = x.slice(1);
+		return upperFirst + tail;
+	}).join(' ');
+}
+// 12. Bounce falsy
+const bouncer = arr => arr.filter(Boolean);
+// 13. Where do I Belong
+const getIndexToIns = (arr, n) => {
+	let sorted = [...arr, n].sort((a, b) => a < b ? -1 : 1);
+	return sorted.indexOf(n);
+}
+// 14. Mutations
+const mutation = ([str, target]) => {
+	let strArray = str.toLowerCase().split('');
+	let targetArray = target.toLowerCase().split('');
+	return targetArray.every(x => strArray.includes(x));
+}
+// 15. Chunky Monkey
+const chunkArrayInGroups = (arr, n) => {
+	let _arr = [...arr];
+	let _res = [];
+
+	while (_arr.length > n) {
+		_res.push([..._arr.splice(0, n)]);
+	}
+	_res.push(_arr);
+	return _res;
 }
