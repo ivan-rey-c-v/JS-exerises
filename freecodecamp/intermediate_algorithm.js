@@ -95,3 +95,57 @@ const fearNotLetter = str => {
 	});
 	return missingCodes.length === 0 ? undefined : String.fromCharCode(...missingCodes);
 }
+// 10. Sorted Union
+const uniteUnique = (...arrays) => {
+	let combinedArray = arrays.reduce((accum, y) => {
+		accum.push(...y);
+		return accum;
+	}, []);
+	return [...new Set(combinedArray)];
+}
+// 11. Convert HTML Entities
+const convertHTML = str => {
+	let strArray = str.split('');
+	return strArray.map(x => {
+		return {
+			'&': '&amp;',
+			'<': '&lt;',
+			'>': '&gt;',
+			'"': '&quot;',
+			"'": '&apos;'
+		}[x] || x;
+	}).join('');
+}
+// 12. Sum All Odd Fibonacci Numbers
+const sumFibs = () => {
+
+}
+
+
+
+// 19. Arguments Optional
+function addTogether() {
+	return arguments.length >= 2 ? arguments[0] + arguments[1] : addTogether.bind(null, ...arguments);
+}
+
+
+// 20. Make a Person
+var Person = function (firstAndLast) {
+	let [_firstName, _lastName] = firstAndLast.split(' ');
+
+	this.getFirstName = () => _firstName;
+	this.getLastName = () => _lastName;
+	this.getFullName = () => `${_firstName} ${_lastName}`;
+
+	this.setFirstName = val => _firstName = val;
+	this.setLastName = val => _lastName = val;
+	this.setFullName = fullName => [_firstName, _lastName] = fullName.split(' ');
+}
+
+
+
+
+
+
+
+
