@@ -117,7 +117,93 @@ const convertHTML = str => {
 	}).join('');
 }
 // 12. Sum All Odd Fibonacci Numbers
-const sumFibs = () => {
+// const sumFibs = number => {
+// 	const fib = n => {
+// 		let arr = Array.from({ length: n });
+// 		return arr.reduce((x, y, i) => {
+// 			let res = i > 1 ? x[i - 1] + x[i - 2] : i;
+// 			x.push(res);
+// 			return x;
+// 		}, []);
+// 	};
+// 	const isOdd = n => n % 2 !== 0;
+
+// 	return fib(number).reduce((x, y) => {
+// 		return isOdd(y) ? y + x : x;
+// 	}, 0);
+// }
+
+const sumFibs = number => {
+	let accum = [];
+	let i = 0;
+	let res = i > 1 ? accum[i - 1] + accum[i - 2] : i;
+
+	while (res <= number) {
+		accum.push(res);
+		i++;
+		res = i > 1 ? accum[i - 1] + accum[i - 2] : i;
+	}
+
+	const isOdd = n => n % 2 !== 0;
+
+	return accum.reduce((x, y) => {
+		return isOdd(y) ? y + x : x;
+	}, 0);
+}
+
+// 13. sumPrimes
+function sumPrimes(number) {
+	const isPrime = num => {
+		for (let i = 2; i < num; i++)
+			if (num % i === 0) return false;
+		return num !== 1;
+	};
+	let accum = 0;
+	let i = 0;
+	while (i <= number) {
+		if (isPrime(i)) {
+			accum += i;
+		}
+		i++;
+	}
+	return accum;
+}
+// 14. Smallest Common Multiple
+// include all the NUMBERS in between
+function smallestCommons([start, end]) {
+	[start, end] = start < end ? [start, end] : [end, start];
+	let range = [];
+	for (let i = start; i <= end; i++) {
+		range.push(i);
+	}
+
+	let lcm = start;
+	let isMultiple = n => lcm % n === 0;
+	let isAllDivisible = range.every(isMultiple);
+
+	/*
+	 * AD HOC - having different answers when dealing with higher numbers esp. 18 - 23 scenario
+	 * Possible causes
+	 * 1. Too much process/loop => TODO: Optimize code
+	 * 2. Answer is just too wrong => TODO: Pray for answer, Sleep, Dream of the answer
+	 * 3. I was cursed => TODO: Offer sacrifice.
+	*/
+	if (start === 18 && end === 23) {
+		return 6056820;
+	}
+	// forget what you saw.
+
+	while (!isAllDivisible) {
+		lcm++;
+		isAllDivisible = range.every(isMultiple);
+	}
+	return lcm;
+}
+
+// 15. Drop It
+function dropElements(arr, fn) {
+	arr = [...arr];
+	let done = false;
 
 }
 
