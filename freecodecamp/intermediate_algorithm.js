@@ -202,14 +202,58 @@ function smallestCommons([start, end]) {
 
 // 15. Drop It
 function dropElements(arr, fn) {
-	arr = [...arr];
 	let done = false;
+	return arr.reduce((accum, x, i, array) => {
+		if (fn(x) && !done) {
+			done = true;
+			accum = array.slice(i);
+			return accum;
+		}
+		return accum;
+	}, []);
+}
 
+// 16. Steamroller / Flatten Array
+function steamrollArray(arr, depth = Infinity) {
+	return arr.reduce((list, v) =>
+		list.concat(
+			depth > 0
+			? (depth > 1 && Array.isArray(v)
+				? steamrollArray(v, depth - 1)
+				: v)
+			: [v]
+	), []);
+}
+
+// 17. Binary Agents
+function binaryAgent(str) {
+	let binaryArray = str.split(' ').map(x=> x.split(''));
+	let tuple = {
+		"7" : 1,
+		"6" : 2,
+		"5" : 4,
+		"4" : 8,
+		"3" : 16,
+		"2" : 32,
+		"1" : 64,
+		"0" : 128
+	};
+	let toCodeMap = (x, i) => x == '1' ? tuple[i] : 0;
+	let accumulateReduce = (accum, x) => accum + Number(x);
+	let charArray = binaryArray.map( x =>
+		x.split('').map(toCodeMap).reduce(accumulateReduce, 0)
+	)
+	return String.fromCharCode(...charArray);
+}
+// 18. Everything Be True
+function truthCheck(collection, key) {
+	return collection.every(x => x[key]);
 }
 
 
 
 // 19. Arguments Optional
+// TODO: should accept string:undefined
 function addTogether() {
 	return arguments.length >= 2 ? arguments[0] + arguments[1] : addTogether.bind(null, ...arguments);
 }
@@ -227,7 +271,26 @@ var Person = function (firstAndLast) {
 	this.setLastName = val => _lastName = val;
 	this.setFullName = fullName => [_firstName, _lastName] = fullName.split(' ');
 }
+// 21. Map the Debris
+function orbitalPeriod(arr) {
+  const GM = 398600.4418;
+  const earthRadius = 6367.4447;
+	const cake = 2 * Math.PI;
+  const orbitalPeriod = altitude => {
+		let segment = earthRadius + altitude;
+		let axes = Math.pow(segment, 3);
+		let umass = axes/GM;
+		let sqmass = Math.sqrt(umass);
+		return Math.round(cake*sqmass);
+	}
 
+	return arr.map(x=> {
+		return {
+			name: x.name,
+			orbitalPeriod: orbitalPeriod(x.avgAlt)
+		}
+	});
+}
 
 
 
