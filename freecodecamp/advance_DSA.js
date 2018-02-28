@@ -1,6 +1,6 @@
 // 1. Palindrome
 function palindrome(str) {
-  str = str.replace(/[^a-zA-z]/g, '').toLowerCase();
+  str = str.replace(/[\W_]/g, '').toLowerCase();
   let front = 0;
   let back = str.length - 1;
 
@@ -16,7 +16,7 @@ function palindrome(str) {
 }
 
 // 2. Roman Numeral
-function toRomanNumeral ( number ) {
+function convertToRoman ( number ) {
   let numeral_tuple = {
     "1": 'I',
     "5": 'V',
@@ -60,5 +60,25 @@ function toRomanNumeral ( number ) {
   }).reverse().join('');
 }
 
+// 3. Caesars Cipher
+function rot13 (str) {
+  let arr = str.split(' ');
+  return arr.map(x=> {
+    let strArr = x.split('');
+    return strArr.map(x=> {
+      let code = x.charCodeAt();
+      if (code >= 65 && code <= 77) {
+        code += 13;
+      }
+      else if (code >= 78 && code <= 90) {
+        code -= 13;
+      }
+      return String.fromCharCode(code);
+    }).join('');
+  }).join(' ');
+}
 
+// 4. Telephone Number Validator
+function telephoneChec() {
 
+}
