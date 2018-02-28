@@ -176,28 +176,14 @@ function smallestCommons([start, end]) {
 	for (let i = start; i <= end; i++) {
 		range.push(i);
 	}
+	const getGCD = (...arr) => {
+		const _gcd = (x, y) => (!y ? x : getGCD(y, x % y));
+		return [...arr].reduce((a, b) => _gcd(a, b));
+	};
 
-	let lcm = start;
-	let isMultiple = n => lcm % n === 0;
-	let isAllDivisible = range.every(isMultiple);
+	const getLCM = (a, b) => (a * b) / getGCD(a, b);
 
-	/*
-	 * AD HOC - having different answers when dealing with higher numbers esp. 18 - 23 scenario
-	 * Possible causes
-	 * 1. Too much process/loop => TODO: Optimize code
-	 * 2. Answer is just too wrong => TODO: Pray for answer, Sleep, Dream of the answer
-	 * 3. I was cursed => TODO: Offer sacrifice.
-	*/
-	if (start === 18 && end === 23) {
-		return 6056820;
-	}
-	// forget what you saw.
-
-	while (!isAllDivisible) {
-		lcm++;
-		isAllDivisible = range.every(isMultiple);
-	}
-	return lcm;
+	return range.reduce(getLCM);
 }
 
 // 15. Drop It
