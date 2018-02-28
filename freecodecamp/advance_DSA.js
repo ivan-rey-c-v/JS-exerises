@@ -79,6 +79,23 @@ function rot13 (str) {
 }
 
 // 4. Telephone Number Validator
-function telephoneChec() {
+// Can't justify/understand sample implementations in internet
+function telephoneCheck() {
+}
+
+// 5. Cash Register
+function checkCashRegister(price, cash, cid) {
+  var change = cash - price;
+  var tuple = {
+    penny: 0.01,
+    nickel: 0.05,
+    dime: 0.1,
+    quarter: 0.25,
+    dollar: 1,
+    five: 5,
+    ten: 10,
+    twenty: 20,
+    'one-hundred':100
+  };
 
 }

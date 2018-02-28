@@ -239,9 +239,14 @@ function truthCheck(collection, key) {
 
 
 // 19. Arguments Optional
-// TODO: should accept string:undefined
-function addTogether() {
-	return arguments.length >= 2 ? arguments[0] + arguments[1] : addTogether.bind(null, ...arguments);
+function addTogether(...arg) {
+	return arg.length >= 2
+				 ? typeof arg[1] === 'number'
+					 ? arg[0] + arg[1]
+					 : undefined
+				 : typeof arg[0] === 'number'
+					 ? addTogether.bind(null, arg[0])
+					 : undefined;
 }
 
 
